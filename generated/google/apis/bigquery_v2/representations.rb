@@ -622,6 +622,7 @@ module Google
       
           property :flatten_results, as: 'flattenResults'
           property :maximum_billing_tier, as: 'maximumBillingTier'
+          property :maximum_bytes_billed, as: 'maximumBytesBilled'
           property :preserve_nulls, as: 'preserveNulls'
           property :priority, as: 'priority'
           property :query, as: 'query'
@@ -994,6 +995,7 @@ module Google
         # @private
         class Representation < Google::Apis::Core::JsonRepresentation
           property :query, as: 'query'
+          property :use_legacy_sql, as: 'useLegacySql'
           collection :user_defined_function_resources, as: 'userDefinedFunctionResources', class: Google::Apis::BigqueryV2::UserDefinedFunctionResource, decorator: Google::Apis::BigqueryV2::UserDefinedFunctionResource::Representation
       
         end

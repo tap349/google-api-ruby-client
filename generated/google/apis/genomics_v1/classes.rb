@@ -3311,6 +3311,11 @@ module Google
         # @return [String]
         attr_accessor :create_time
       
+        # The time at which the job began to run.
+        # Corresponds to the JSON property `startTime`
+        # @return [String]
+        attr_accessor :start_time
+      
         # The time at which the job stopped running.
         # Corresponds to the JSON property `endTime`
         # @return [String]
@@ -3329,6 +3334,17 @@ module Google
         # @return [Array<Google::Apis::GenomicsV1::OperationEvent>]
         attr_accessor :events
       
+        # Optionally provided by the caller when submitting the request that creates the
+        # operation.
+        # Corresponds to the JSON property `clientId`
+        # @return [String]
+        attr_accessor :client_id
+      
+        # Runtime metadata on this Operation.
+        # Corresponds to the JSON property `runtimeMetadata`
+        # @return [Hash<String,Object>]
+        attr_accessor :runtime_metadata
+      
         def initialize(**args)
            update!(**args)
         end
@@ -3337,15 +3353,29 @@ module Google
         def update!(**args)
           @project_id = args[:project_id] if args.key?(:project_id)
           @create_time = args[:create_time] if args.key?(:create_time)
+          @start_time = args[:start_time] if args.key?(:start_time)
           @end_time = args[:end_time] if args.key?(:end_time)
           @request = args[:request] if args.key?(:request)
           @events = args[:events] if args.key?(:events)
+          @client_id = args[:client_id] if args.key?(:client_id)
+          @runtime_metadata = args[:runtime_metadata] if args.key?(:runtime_metadata)
         end
       end
       
       # An event that occurred during an Operation.
       class OperationEvent
         include Google::Apis::Core::Hashable
+      
+        # Optional time of when event started.
+        # Corresponds to the JSON property `startTime`
+        # @return [String]
+        attr_accessor :start_time
+      
+        # Optional time of when event finished. An event can have a start time and no
+        # finish time. If an event has a finish time, there must be a start time.
+        # Corresponds to the JSON property `endTime`
+        # @return [String]
+        attr_accessor :end_time
       
         # Required description of event.
         # Corresponds to the JSON property `description`
@@ -3358,7 +3388,68 @@ module Google
       
         # Update properties of this object
         def update!(**args)
+          @start_time = args[:start_time] if args.key?(:start_time)
+          @end_time = args[:end_time] if args.key?(:end_time)
           @description = args[:description] if args.key?(:description)
+        end
+      end
+      
+      # Runtime metadata that will be populated in the runtimeMetadata field of the
+      # Operation associated with a RunPipeline execution.
+      class RuntimeMetadata
+        include Google::Apis::Core::Hashable
+      
+        # Describes a Compute Engine resource that is being managed by a running
+        # pipeline.
+        # Corresponds to the JSON property `computeEngine`
+        # @return [Google::Apis::GenomicsV1::ComputeEngine]
+        attr_accessor :compute_engine
+      
+        def initialize(**args)
+           update!(**args)
+        end
+      
+        # Update properties of this object
+        def update!(**args)
+          @compute_engine = args[:compute_engine] if args.key?(:compute_engine)
+        end
+      end
+      
+      # Describes a Compute Engine resource that is being managed by a running
+      # pipeline.
+      class ComputeEngine
+        include Google::Apis::Core::Hashable
+      
+        # The instance on which the operation is running.
+        # Corresponds to the JSON property `instanceName`
+        # @return [String]
+        attr_accessor :instance_name
+      
+        # The availability zone in which the instance resides.
+        # Corresponds to the JSON property `zone`
+        # @return [String]
+        attr_accessor :zone
+      
+        # The machine type of the instance.
+        # Corresponds to the JSON property `machineType`
+        # @return [String]
+        attr_accessor :machine_type
+      
+        # The names of the disks that were created for this pipeline.
+        # Corresponds to the JSON property `diskNames`
+        # @return [Array<String>]
+        attr_accessor :disk_names
+      
+        def initialize(**args)
+           update!(**args)
+        end
+      
+        # Update properties of this object
+        def update!(**args)
+          @instance_name = args[:instance_name] if args.key?(:instance_name)
+          @zone = args[:zone] if args.key?(:zone)
+          @machine_type = args[:machine_type] if args.key?(:machine_type)
+          @disk_names = args[:disk_names] if args.key?(:disk_names)
         end
       end
     end
